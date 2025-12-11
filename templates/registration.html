@@ -1,0 +1,22 @@
+<thead>
+    <tr>
+        <th>&nbsp;</th>
+        <th>ユーザーID</th>
+        <th>ユーザー名前</th>
+        <th>作成日時</th>
+        <th>バイト先</th>
+        <th>収入</th>
+    </tr>
+</thead>
+    <tbody>
+        {% for user in items %}
+        <tr>
+            <td><a href="{{ url_for('salary_create') }}">編集</a></td>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.created_at}}</td>
+            <td>{{ user.workplace }}</td>
+            <td>{{ user.income }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
