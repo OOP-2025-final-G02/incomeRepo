@@ -3,7 +3,7 @@ from .db import db
 
 class User(Model):
     name = CharField() 
-    created_at = IntegerField()
+    created_at = CharField()
     workplace = CharField()
     income = IntegerField()
 
