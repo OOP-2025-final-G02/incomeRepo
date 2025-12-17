@@ -1,4 +1,4 @@
-from peewee import Model, CharField, IntegerField
+from peewee import Model, CharField
 from .db import db
 
 class User(Model):
