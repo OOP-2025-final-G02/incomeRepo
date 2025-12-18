@@ -19,8 +19,8 @@ def add():
     
     if request.method == 'POST':
         name = request.form['name']
-        age = request.form['age']
-        User.create(name=name, age=age)
+        workplace = request.form['workplace']
+        User.create(name=name, workplace=workplace)
         return redirect(url_for('user.list'))
     
     return render_template('user_add.html')
@@ -34,7 +34,7 @@ def edit(user_id):
 
     if request.method == 'POST':
         user.name = request.form['name']
-        user.age = request.form['age']
+        user.workplace = request.form['workplace']
         user.save()
         return redirect(url_for('user.list'))
 
