@@ -1,3 +1,4 @@
+
 from peewee import Model, CharField, IntegerField, DateTimeField
 from datetime import datetime
 from .db import db
