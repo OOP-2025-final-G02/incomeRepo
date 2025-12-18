@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from models import Product, User
+from datetime import datetime
 
 # Blueprintの作成
 product_bp = Blueprint('product', __name__, url_prefix='/products')
@@ -17,8 +18,13 @@ def add():
     # POSTで送られてきたデータは登録
     if request.method == 'POST':
         user_id = request.form['user_id']
+        created_at_str = request.form['created_at']
         income = request.form['income']
-        Product.create(user=user_id, income=income)
+
+        # 文字列の日付をdatetimeオブジェクトに変換
+        created_at = datetime.strptime(created_at_str, '%Y-%m-%d')
+
+        Product.create(user=user_id, created_at=created_at, income=income)
         return redirect(url_for('product.list'))
 
     # ユーザー一覧を取得してテンプレートに渡す

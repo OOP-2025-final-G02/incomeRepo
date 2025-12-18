@@ -5,7 +5,7 @@ from .user import User
 
 class Product(Model):
     user = ForeignKeyField(User, backref='products')
-    created_at = DateTimeField(default=datetime.now)
+    created_at = DateTimeField()
     income = DecimalField()
 
     class Meta:
