@@ -34,7 +34,7 @@ def edit(user_id):
 
     if request.method == 'POST':
         user.name = request.form['name']
-        user.age = request.form['age']
+        user.workplace = request.form['workplace']
         user.save()
         return redirect(url_for('user.list'))
 
