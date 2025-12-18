@@ -1,6 +1,6 @@
 
 from peewee import Model, CharField, IntegerField, DateTimeField
-from datetime import datetime60851bffa0
+from datetime import datetime
 from .db import db
 
 class User(Model):
