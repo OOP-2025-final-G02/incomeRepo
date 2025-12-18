@@ -1,13 +1,12 @@
-from peewee import Model, CharField, IntegerField
+from peewee import Model, CharField, IntegerField, DateTimeField
 from datetime import datetime
 from .db import db
 
 class User(Model):
     name = CharField()
-    created_at = CharField(default=lambda: datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    created_at = DateTimeField(default=datetime.now)
     workplace = CharField()
-    income = IntegerField(default=0)
-
+    income = IntegerField()
 
     class Meta:
         database = db
