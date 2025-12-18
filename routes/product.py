@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from models import Product
+from models import Product, User
 
 # Blueprintの作成
 product_bp = Blueprint('product', __name__, url_prefix='/products')
@@ -13,27 +13,14 @@ def list():
 
 @product_bp.route('/add', methods=['GET', 'POST'])
 def add():
-    
+
     # POSTで送られてきたデータは登録
     if request.method == 'POST':
-        name = request.form['name']
-        price = request.form['price']
-        Product.create(name=name, price=price)
-        return redirect(url_for('product.list'))
-    
-    return render_template('product_add.html')
-
-
-@product_bp.route('/edit/<int:product_id>', methods=['GET', 'POST'])
-def edit(product_id):
-    product = Product.get_or_none(Product.id == product_id)
-    if not product:
+        user_id = request.form['user_id']
+        income = request.form['income']
+        Product.create(user=user_id, income=income)
         return redirect(url_for('product.list'))
 
-    if request.method == 'POST':
-        product.name = request.form['name']
-        product.price = request.form['price']
-        product.save()
-        return redirect(url_for('product.list'))
-
-    return render_template('product_edit.html', product=product)
+    # ユーザー一覧を取得してテンプレートに渡す
+    users = User.select()
+    return render_template('product_add.html', users=users)
