@@ -7,7 +7,6 @@ class User(Model):
     name = CharField()
     created_at = DateTimeField(default=datetime.now)
     workplace = CharField()
-    income = IntegerField()
 
     class Meta:
         database = db
