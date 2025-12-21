@@ -1,5 +1,11 @@
 <div style="margin-top: 20px;">
-  <h2>グラフ1</h2>
-  <canvas id="chart1" width="400" height="200"></canvas>
-  <!-- ここにグラフを書いてね -->
+  <h2 style="color: #A23B72; border-bottom: 2px solid #A23B72; padding-bottom: 10px;">月別グラフ</h2>
+  {% if monthly_graph %}
+    <div style="display: flex; justify-content: center; margin: 20px 0; background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
+      <img src="data:image/png;base64,{{ monthly_graph }}" alt="月別金額グラフ" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+    </div>
+    <p style="color: #666; font-size: 0.9em; text-align: center;">縦軸：金額（円）| 横軸：年-月</p>
+  {% else %}
+    <p style="color: #999; text-align: center; padding: 20px;">グラフを表示するデータがありません。</p>
+  {% endif %}
 </div>
