@@ -5,75 +5,11 @@
 import matplotlib
 matplotlib.use('Agg')  # GUI不要の場合はAggバックエンドを使用
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 import pandas as pd
 from models.product import Product
-from datetime import datetime
-import os
 import io
 import base64
-
-def generate_income_graph():
-    """
-    金額の折れ線グラフを生成する
-    横軸: 年-月-日, 縦軸: 金額
-    DBに複数年データがあれば自動的に対応
-    """
-    # データベースから全データを取得
-    products = Product.select().order_by(Product.created_at)
-    
-    if not products:
-        return None
-    
-    # DataFrameに変換
-    data = []
-    for product in products:
-        data.append({
-            'date': product.created_at,
-            'income': float(product.income)
-        })
-    
-    df = pd.DataFrame(data)
-    df['date'] = pd.to_datetime(df['date'])
-    df = df.sort_values('date')
-    
-    # 日付でグループ化して合計を計算
-    df_grouped = df.groupby(df['date'].dt.date)['income'].sum().reset_index()
-    df_grouped['date'] = pd.to_datetime(df_grouped['date'])
-    
-    # グラフの作成
-    fig, ax = plt.subplots(figsize=(14, 6))
-    
-    ax.plot(df_grouped['date'], df_grouped['income'], 
-            marker='o', linestyle='-', linewidth=2, markersize=5, color='#2E86AB')
-    
-    # グリッドを追加
-    ax.grid(True, alpha=0.3)
-    
-    # ラベルとタイトル
-    ax.set_xlabel('日付 (年-月-日)', fontsize=12, fontweight='bold')
-    ax.set_ylabel('金額 (円)', fontsize=12, fontweight='bold')
-    ax.set_title('金額推移グラフ', fontsize=14, fontweight='bold')
-    
-    # x軸の日付フォーマット
-    import matplotlib.dates as mdates
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
-    ax.xaxis.set_major_locator(mdates.AutoDateLocator())
-    plt.xticks(rotation=45, ha='right')
-    
-    # y軸を金額形式で表示
-    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'¥{x:,.0f}'))
-    
-    # レイアウト調整
-    plt.tight_layout()
-    
-    # 画像をバイナリに変換してBase64エンコード
-    buffer = io.BytesIO()
-    plt.savefig(buffer, format='png', dpi=100)
-    buffer.seek(0)
-    image_base64 = base64.b64encode(buffer.getvalue()).decode()
-    plt.close()
-    
-    return image_base64
 
 def generate_monthly_summary_graph():
     """
