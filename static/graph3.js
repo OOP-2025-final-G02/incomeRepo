@@ -53,6 +53,25 @@ function drawChart(selectedYear) {
     }
   });
 
+  if (incomes.length === 0) {
+    // データなしの場合
+    if (chart) {
+      chart.destroy();
+    }
+  
+    chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: [],
+        datasets: [{
+          label: `${selectedYear}年（月別データなし）`,
+          data: []
+        }]
+      }
+    });
+    return; // 以降の処理を止める
+  }
+
   // ★ 平均収入
   const average =
     incomes.reduce((sum, v) => sum + v, 0) / incomes.length;
