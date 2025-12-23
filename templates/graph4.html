@@ -1,8 +1,8 @@
 <div style="margin-top: 20px;">
-  <h2>グラフ4 - 年ごとの月収合計</h2>
+  <h2>グラフ4 - 年収</h2>
   <canvas id="chart4" width="400" height="200"></canvas>
   <script>
-    // 年ごとの月収合計
+    // 年収
     const yearlyData = JSON.parse('{{ yearly_data | tojson | safe }}');
     if (yearlyData && yearlyData.years && yearlyData.years.length > 0) {
       const ctx4 = document.getElementById('chart4').getContext('2d');
@@ -11,7 +11,7 @@
         data: {
           labels: yearlyData.years,
           datasets: [{
-            label: '年間月収合計',
+            label: '年収',
             data: yearlyData.counts,
             borderColor: 'rgb(75, 192, 192)',
             backgroundColor: 'rgba(75, 192, 192, 0.1)',
@@ -29,7 +29,7 @@
             },
             title: {
               display: true,
-              text: '年ごとの月収合計'
+              text: '年収の推移'
             }
           },
           scales: {
@@ -37,7 +37,7 @@
               beginAtZero: true,
               title: {
                 display: true,
-                text: '月収合計'
+                text: '年収'
               }
             },
             x: {
