@@ -2,6 +2,10 @@
   <h2>グラフ3</h2>
   <label for="yearSelect">年を選択：</label>
   <select id="yearSelect"></select>
+
+  <label for="userSelect">人：</label>
+  <select id="userSelect"></select>
+
   <canvas id="chart3" width="400" height="200"></canvas>
   <!-- ここにグラフを書いてね -->
   <script id="products-data" type="application/json">
@@ -9,11 +13,25 @@
       {% for p in products %}
       {
         "created_at": "{{ p.created_at.strftime('%Y-%m-%d') }}",
-        "income": {{ p.income }}
+        "income": {{ p.income }}, 
+        "user_id": {{ p.user_id }}
       }{% if not loop.last %},{% endif %}
       {% endfor %}
     ]
     </script>
+
+    <!-- ユーザー一覧 -->
+  <script id="users-data" type="application/json">
+    [
+      {% for user in users %}
+      {
+        "id": {{ user.id }},
+        "name": "{{ user.name }}"
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+    </script>
+    
     <script src="{{ url_for('static', filename='./graph3.js') }}"></script>
   
 
