@@ -2,8 +2,8 @@ from flask import Blueprint, render_template
 from models import Order, User, Product
 from datetime import datetime
 from collections import defaultdict
-
 from models.graph_generator import generate_monthly_summary_graph
+from models import Product, User
 from models.graph_circle import generate_monthly_summary_graph as generate_pie_graph 
 
 
@@ -31,6 +31,10 @@ def index():
     }
 
     monthly_graph = generate_monthly_summary_graph()
+
+    products = Product.select()
+    users = User.select()
+
     pie_graph = generate_pie_graph()
 
     return render_template('graph.html',
@@ -41,4 +45,3 @@ def index():
                          yearly_data=yearly_data,
                          monthly_graph=monthly_graph,
                          pie_graph=pie_graph)
-
