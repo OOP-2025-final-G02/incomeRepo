@@ -2,7 +2,7 @@
 グラフ生成モジュール
 外部ライブラリ: matplotlib, pandas を使用
 """
-import matplotlib
+import matplotlib # グラフ生成用
 matplotlib.use('Agg')  # GUI不要の場合はAggバックエンドを使用
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -38,9 +38,6 @@ def generate_monthly_summary_graph():
     df['year_month'] = df['date'].dt.to_period('M')
     df_monthly = df.groupby('year_month')['income'].sum().reset_index()
     df_monthly['year_month'] = df_monthly['year_month'].astype(str)
-    
-    # 合計金額を計算
-    total_income = float(df_monthly['income'].sum())
     
     # グラフの作成
     fig, ax = plt.subplots(figsize=(10, 8))
