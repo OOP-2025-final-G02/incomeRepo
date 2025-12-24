@@ -1,5 +1,56 @@
 <div style="margin-top: 20px;">
-  <h2>グラフ4</h2>
+  <h2>グラフ4 - 年収</h2>
   <canvas id="chart4" width="400" height="200"></canvas>
-  <!-- ここにグラフを書いてね -->
+  <script>
+    // 年収
+    const yearlyData = JSON.parse('{{ yearly_data | tojson | safe }}');
+    if (yearlyData && yearlyData.years && yearlyData.years.length > 0) {
+      const ctx4 = document.getElementById('chart4').getContext('2d');
+      const chart4 = new Chart(ctx4, {
+        type: 'line',
+        data: {
+          labels: yearlyData.years,
+          datasets: [{
+            label: '年収',
+            data: yearlyData.counts,
+            borderColor: 'rgb(75, 192, 192)',
+            backgroundColor: 'rgba(75, 192, 192, 0.1)',
+            borderWidth: 2,
+            tension: 0.1,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top'
+            },
+            title: {
+              display: true,
+              text: '年収の推移'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: '年収'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: '年'
+              }
+            }
+          }
+        }
+      });
+    } else {
+      console.log('No yearly data available');
+    }
+  </script>
 </div>
