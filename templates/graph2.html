@@ -1,5 +1,13 @@
 <div style="margin-top: 20px;">
-  <h2>グラフ2</h2>
-  <canvas id="chart2" width="400" height="200"></canvas>
-  <!-- ここにグラフを書いてね -->
+  <h2>円グラフ</h2>
+  {% if pie_graph %}
+    <!-- 円グラフの表示 -->
+    <div style="display: flex; justify-content: center; margin: 20px 0; background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
+      <img src="data:image/png;base64,{{ pie_graph }}" alt="月別金額グラフ" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+    </div>
+    
+    <p style="color: #666; font-size: 0.9em; text-align: center;">各月の収入割合（%）</p>
+  {% else %}
+    <p style="color: #999; text-align: center; padding: 20px;">グラフを表示するデータがありません。</p>
+  {% endif %}
 </div>
