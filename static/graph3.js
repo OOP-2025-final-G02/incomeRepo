@@ -125,4 +125,7 @@ yearSelect.addEventListener('change', tryDraw);
 userSelect.addEventListener('change', tryDraw);
 
 // 初期表示
+yearSelect.value = years[0];
+userSelect.value = userIds[0];
 drawChart(years[0], userIds[0]);
+
